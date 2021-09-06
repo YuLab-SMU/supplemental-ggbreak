@@ -93,7 +93,7 @@ p / p1
 ```
 ### Example3: Cut Manhattan plot to create more space for annotation
 
-```{r cut,fig.width=12, fig.height=10, error=FALSE, warning=FALSE, message=FALSE,dpi=300}
+```{r cut,fig.width=12, fig.height=10, error=FALSE, warning=FALSE, message=FALSE, dev="CairoPNG",dpi=300}
 
 library("ggbreak")
 library("patchwork")
