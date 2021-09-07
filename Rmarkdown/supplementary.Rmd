@@ -30,7 +30,7 @@ usepackage_latex("booktabs")
 
 ### Example1: automatically wrap plot with long x axis scale
 
-```{r warp,fig.width=12, fig.height=16, error=FALSE, warning=FALSE, message=FALSE,dpi=300}
+```{r warp,fig.width=12,fig.height=16,error=FALSE, warning=FALSE, message=FALSE, dpi=300}
 library(ggplot2)
 library(ggbreak)
 library(patchwork)
@@ -56,7 +56,7 @@ p <- ggplot(data=data) +
           legend.text=element_text(size=14))
 
 p1 <- p + scale_wrap(n=4) +
-    geom_rect(aes(xmin=2432, xmax=2512, ymin=-4.5, ymax=4),fill='#57c3c2',alpha = 0.002) +
+    geom_rect(xmin=2432, xmax=2512, ymin=-4.5, ymax=4,fill='#57c3c2',alpha = 0.002) +
     geom_rect(aes(xmin=2716, xmax=2813, ymin=-4.5, ymax=4),fill='#57c3c2',alpha = 0.002) +
     geom_rect(aes(xmin=3219, xmax=3233, ymin=-4.5, ymax=4),fill='#ef475d',alpha = 0.002) +
     geom_rect(aes(xmin=3547, xmax=3571, ymin=-4.5, ymax=4),fill='#ef475d',alpha = 0.002)
