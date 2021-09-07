@@ -21,7 +21,6 @@ To compile the supplemental_file.pdf, please run the following command in R:
 
 ```
 rmarkdown::render('supplementary.Rmd')
-
 ```
 Here is the output of `devtools::session_info()` on the system on which the document was compiled:
 ```
