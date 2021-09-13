@@ -99,7 +99,7 @@ plot_list(p, p1, ncol=1, tag_levels = 'A', tag_size = rel(2))
 ```
 
 ```{r echo=F}
-g2 = aplot::plot_list(p, p1, ncol=1, tag_levels = 'A')
+g2 = aplot::plot_list(p, p1, ncol=1, tag_levels = 'A', tag_size = rel(2))
 ggsave(g2, file="../Figures/Figure2.pdf", height=7, width=12)
 ggsave(g2, file="../Figures/Figure2.png", height=7, width=12)
 ```
