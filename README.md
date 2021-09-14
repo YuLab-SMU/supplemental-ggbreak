@@ -1,20 +1,14 @@
 # supplemental-ggbreak
+
 This repo contains source code and data to produce Supplementary Material.
 
 + supplementary.Rmd: R Markdown file to compile the PDF
-
 + supplementary.pdf: Supplemental Material, the PDF
-
 + header.tex: LaTeX packages that used to compile the PDF
-
 + 7MWE_A.csv: the amino acid hydrophobicity or hydrophilicity scales output of human E3 ubiquitin-protein ligase HUWE1 Chain A(NCBI_id:7MWE_A) using Expasy-Protscale with default parameters.
-
 + gp200.nwk: newick text of gp200 tree was published on https://europepmc.org/article/MED/21113103.
-
 + GCST90007012_buildGRCh37.tsv : SNP data was collected from GWAS Catalog and published on https://www.nature.com/articles/s42003-020-01416-z.
-
 + data1.txt: microbe relative abundance data was published on https://www.sciencedirect.com/science/article/abs/pii/S0048969719352659.
-
 + sigdata.rda: significant levels of microbe relative abundance data was published on https://www.sciencedirect.com/science/article/abs/pii/S0048969719352659.
 
 To compile the supplemental_file.pdf, please run the following command in R:
@@ -22,7 +16,10 @@ To compile the supplemental_file.pdf, please run the following command in R:
 ```
 rmarkdown::render('supplementary.Rmd')
 ```
+
+
 Here is the output of `devtools::session_info()` on the system on which the document was compiled:
+
 ```
 # - Session info ----------------------------------------
 #     setting  value

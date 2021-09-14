@@ -14,7 +14,19 @@ geometry: margin=0.45in
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# Supplementary file of ggbreak: An R package to set tailored axis scale break easily for ggplots
+
+
+
+**Supplemental File of**
+
+\begingroup\Large
+**Use ggbreak to effectively utilize plotting space to deal with large datasets and outliers**
+\endgroup
+
+**Shuangbin Xu^#^, Meijun Chen^#^, Tingze Feng, Li Zhan, Lang Zhou, Guangchuang Yu^\*^ **
+
+^#^ These authors contributed equally to this work
+^\*^ Correspondence: Guangchuang Yu \<gcyu1@smu.edu.cn\>
 
 ```{r, echo=FALSE, message=FALSE, results='hide'}
 require(kableExtra)
@@ -28,7 +40,7 @@ usepackage_latex("booktabs")
 ```
 
 
-## Example1: automatically wrap plot with long x axis scale
+# Example 1: Automatically wrap plot with long x-axis scale
 
 ```{r warp,fig.width=12,fig.height=16,error=FALSE, warning=FALSE, message=FALSE, dpi=300}
 library(ggplot2)
@@ -70,7 +82,7 @@ ggsave(g1, file="../Figures/Figure1.tiff", compression='lzw', width=12, height=1
 ggsave(g1, file="../Figures/Figure1.png", width=12, height=16)
 ```
 
-## Example 2: Shrank outlier branch of phylogenetic tree
+# Example 2: Shrank outlier branch of a phylogenetic tree
 
 ```{r tree,fig.width=12, fig.height=7, error=FALSE, warning=FALSE, message=FALSE,dpi=300}
 library("ggtree")
@@ -105,7 +117,7 @@ ggsave(g2, file="../Figures/Figure2.png", height=7, width=12)
 ```
 
 
-## Example3: Cut Manhattan plot to create more space for annotation
+# Example 3: Cut Manhattan plot to create more space for annotation
 
 ```{r cut,fig.width=12, fig.height=10, error=FALSE, warning=FALSE, message=FALSE, dev="CairoPNG",dpi=300}
 
@@ -138,15 +150,15 @@ p2 <- p1 + scale_y_cut(breaks=c(4.7),which=c(2),scales=c(0.2)) +
     expand_limits(x=c(0, 23),y=c(0,7.5))
 
 plot_list(p1, p2, ncol=1, tag_levels = 'A', tag_size = rel(2))
-
 ```
+
 ```{r echo=F}
 g3 = plot_list(p1, p2, ncol=1, tag_levels = 'A', tag_size = rel(2))
 ggsave(g3, filename = '../Figures/Figure3.png', width=12, height=10)
 ggsave(g3, filename = '../Figures/Figure3.tiff', compression='lzw', width=12, height=10)
 ```
 
-## Example 4: Inserting broken axes in barplot with ggbreak
+# Example 4: Display discontinuous axis on a bar chart
 
 ```{r break, fig.width=18, fig.height=10, error=FALSE, warning=FALSE, message=FALSE,dpi=300}
 library("ggprism")
