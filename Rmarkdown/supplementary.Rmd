@@ -51,27 +51,51 @@ library(aplot)
 data <- read.table(file = "../data/7MWE_A.csv", sep = ",", header = F, fill = T)
 colnames(data) <- c("Position","Score")
 head(data)
-data2 <- data.frame(c(2728,2729,3228),c(-4.033,-4.033,3.122),c("min","min","max"))
-colnames(data2) <- c("Position","Score","Type")
+data2 <- data.frame(
+             Position = c(2728, 2729, 3228),
+             Score = c(-4.033, -4.033, 3.122), 
+             Type = c("min", "min", "max")
+         )
 
-p <- ggplot(data=data) +
-    geom_line(mapping=aes(x=Position,y=Score),color="#83cbac",stat="identity") +
-    geom_point(data=data2,mapping = aes(x=Position,y=Score,color=Type)) +
-    theme_classic() +
-    geom_hline(yintercept=0,color="grey",linetype="dashed") +
-    expand_limits(y=c(-4.5,3.5)) +
-    theme(axis.text.x = element_text(size = 14),
-          axis.text.y = element_text(size=14),
-          axis.title.x = element_text(size = 16),
-          axis.title.y = element_text(size = 16),
-          legend.title=element_blank(),
-          legend.text=element_text(size=14))
-
-p1 <- p + scale_wrap(n=4) +
-    annotate("rect", xmin=2432, xmax=2512, ymin=-4.5, ymax=4,fill='#57c3c2',alpha = 0.2) +
-    annotate("rect", xmin=2716, xmax=2813, ymin=-4.5, ymax=4,fill='#57c3c2',alpha = 0.2) +
-    annotate("rect", xmin=3219, xmax=3233, ymin=-4.5, ymax=4,fill='#ef475d',alpha = 0.2) +
-    annotate("rect", xmin=3547, xmax=3571, ymin=-4.5, ymax=4,fill='#ef475d',alpha = 0.2)
+p <- ggplot() +
+     geom_line(
+         data = data, 
+         mapping = aes(
+             x = Position, 
+             y = Score
+         ), 
+         color = "#83cbac"
+     ) +
+     geom_point(
+         data = data2, 
+         mapping = aes(
+             x = Position, 
+             y = Score, 
+             color = Type
+         )
+     ) +
+     geom_hline(
+         yintercept = 0, 
+         color = "grey", 
+         linetype = "dashed"
+     ) +
+     expand_limits(y = c(-4.5, 3.5)) +
+     theme_classic() +
+     theme(
+         axis.text = element_text(size = 14),
+         axis.title = element_text(size = 16),
+         legend.title = element_blank(),
+         legend.text = element_text(size = 14)
+     )
+# scale_wrap of ggbreak can wrap the ggplot object to multiple 
+# rows plot to make it easier to read, the n parameter means the
+# number of subplot pieces.
+p1 <- p + 
+      scale_wrap(n=4) +
+      annotate("rect", xmin=2432, xmax=2512, ymin=-4.5, ymax=4, fill='#57c3c2', alpha = 0.2) +
+      annotate("rect", xmin=2716, xmax=2813, ymin=-4.5, ymax=4, fill='#57c3c2', alpha = 0.2) +
+      annotate("rect", xmin=3219, xmax=3233, ymin=-4.5, ymax=4, fill='#ef475d', alpha = 0.2) +
+      annotate("rect", xmin=3547, xmax=3571, ymin=-4.5, ymax=4, fill='#ef475d', alpha = 0.2)
 
 plot_list(p, p1, ncol=1, tag_levels = 'A', tag_size = rel(2), heights=c(1,2))
 ```
@@ -92,20 +116,38 @@ library("aplot")
 library("ggplot2")
 
 treedata <- read.newick(file = "../data/gp200.nwk")
-p <- ggtree(treedata,ladderize=FALSE) +
-    expand_limits(x=c(0,1.6), y=c(0,7)) +
-    geom_tiplab(size=4,color="purple")  +
-    theme_tree2()
-
-p1 <- p + scale_x_break(breaks = c(0.1,1.28),
-                        ticklabels = c(1.4,1.5),scales = 0.5) +
-    geom_highlight(node=9,fill="blue",alpha = 0.3) +
-    theme(
-        plot.margin = margin(t = 2,  
-                             r = 2,  
-                             b = 2,  
-                             l = 2,  
-                             unit = "cm"))
+p <- ggtree(
+         treedata, 
+         ladderize=FALSE
+     ) +
+     expand_limits(x = c(0, 1.6), y = c(0, 7)) +
+     geom_tiplab(size = 4, color = "purple")  +
+     theme_tree2()
+# the scale_x_break of ggbreak is used to set an x axis break point for the ggtree plot
+# breaks parameter means the break point, here, the plot will be split two subplots
+# ticklabels parameter means the x axis ticks labels of subplot.
+# scales parameter means the relative width of subplot to the first subplot (left subplot) 
+# in the example
+p1 <- p + 
+      scale_x_break(
+          breaks = c(0.1, 1.28),
+          ticklabels = c(1.4, 1.5),
+          scales = 0.5
+      ) +
+      geom_highlight(
+          node = 9, 
+          fill = "blue", 
+          alpha = 0.3
+      ) +
+      theme(
+          plot.margin = margin(
+              t = 2,  
+              r = 2,  
+              b = 2,  
+              l = 2,  
+              unit = "cm"
+          )
+      )
 plot_list(p, p1, ncol=1, tag_levels = 'A', tag_size = rel(2))
 
 ```
@@ -132,22 +174,45 @@ head(snp)
 snp$chromosome <- factor(snp$chromosome, 
                          levels = sort(unique(snp$chromosome)))
 
-p1 <- ggplot(snp, aes(x=chromosome, y = -log10(p_value))) +
-    geom_jitter(data=snp,
-                aes(x=chromosome, y = -log10(p_value),color=chromosome)) +
-    theme_classic() + xlab("Chromosomes") +
-    geom_abline(intercept=5,slope = 0,color="grey",linetype="dashed") +
-    theme(legend.position="none",
-          axis.title.y = element_text(size = 14),
-          axis.title.x = element_text(size = 14),
-          axis.text = element_text(size = 14))
+p1 <- ggplot(
+          data = snp, 
+          mapping = aes(
+              x = chromosome, 
+              y = -log10(p_value), 
+              color = chromosome)
+      ) +
+      geom_jitter() +#data=snp,
+      #            aes(x=chromosome, y = -log10(p_value), color=chromosome)) +
+      geom_abline(
+          intercept = 5, 
+          slope = 0, 
+          color = "grey", 
+          linetype = "dashed"
+      ) +
+      theme_classic() + 
+      xlab("Chromosomes") + 
+      theme(
+          legend.position = "none",
+          axis.title = element_text(size = 14),
+          axis.text = element_text(size = 14)
+      )
 
-p2 <- p1 + scale_y_cut(breaks=c(4.7),which=c(2),scales=c(0.2)) +
-    geom_text(data=snp%>%filter(-log10(p_value) >= 5),
-              aes(x=chromosome, y = -log10(p_value),
-                  color=chromosome, label=variant_id),
-              nudge_x =0.1,nudge_y = 0.1) +
-    expand_limits(x=c(0, 23),y=c(0,7.5))
+p2 <- p1 + 
+      scale_y_cut(
+          breaks = 4.7, 
+          which = 2, 
+          scales = 0.2
+      ) +
+      geom_text(
+          data=snp %>% filter(-log10(p_value) >= 5),
+              #aes(x=chromosome, y = -log10(p_value),
+              #    color=chromosome, 
+	          #label=variant_id),
+          mapping = aes(label = variant_id),
+          nudge_x = 0.1, 
+          nudge_y = 0.1
+	  ) +
+      expand_limits(x=c(0, 23), y=c(0, 7.5))
 
 plot_list(p1, p2, ncol=1, tag_levels = 'A', tag_size = rel(2))
 ```
@@ -171,22 +236,46 @@ data1$Species.name <- factor(data1$Species.name,
                              levels = rev(unique(data1$Species.name)))
 load("../data/sigdata.rda")
 
-p1 <- ggplot(data=data1,aes(x=Species.name,weight = Mean, fill = group)) +
-    geom_bar(position = 'dodge') +
-    labs( y = 'Relative abundance(%)', x = NULL) +
-    coord_flip() +
-    theme_prism()
+p1 <- ggplot(
+          data = data1, 
+          mapping = aes(
+              x = Species.name, 
+              weight = Mean, 
+              fill = group
+          )
+      ) +
+      geom_bar(position = 'dodge') +
+      labs(y = 'Relative abundance(%)', x = NULL) +
+      coord_flip() +
+      theme_prism()
 
-p2 <- ggplot(data=data1,aes(x=Species.name,weight = log10(Mean+1), fill = group)) +
-    geom_bar(position = 'dodge') +
-    labs( y = 'log10(Relative abundance+1)', x = NULL) +
-    coord_flip() +
-    theme_prism()
+p2 <- ggplot(
+          data = data1, 
+          mapping = aes(
+              x = Species.name, 
+              weight = log10(Mean+1), 
+              fill = group
+          )
+      ) +
+      geom_bar(position = 'dodge') +
+      labs(y = 'log10(Relative abundance+1)', x = NULL) +
+      coord_flip() +
+      theme_prism()
 
-p3 <- p1 + scale_y_break(c(32, 84),scales=0.5,ticklabels=c(84,85,86)) +
-    scale_y_break(c(3.5, 10),scales=0.5,ticklabels = c(15,25)) 
+p3 <- p1 + 
+      scale_y_break(c(32, 84), scales = 0.5, ticklabels=c(84, 85, 86)) +
+      scale_y_break(c(3.5, 10), scales = 0.5, ticklabels = c(15, 25)) 
 
-p4 <- p3 + geom_text(data=sigdata,mapping=aes(x=Species,y=Mean,label=sig),vjust=-0.1)
+p4 <- p3 + 
+      geom_text(
+          data = sigdata, 
+          mapping = aes(
+              x = Species, 
+              y = Mean, 
+              label = sig
+          ),
+          vjust=-0.1
+      )
 
 plot_list(p1, p2, p3, p4, byrow=T, tag_levels = 'A', tag_size = rel(2))
 ```
