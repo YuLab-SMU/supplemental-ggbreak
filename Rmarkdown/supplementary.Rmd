@@ -87,7 +87,7 @@ p <- ggplot() +
          legend.text = element_text(size = 14)
      )
 # scale_wrap of ggbreak can wrap the ggplot object to multiple 
-# rows plot to make it easier to read, the n parameter means the
+# rows to make it easier to read, the n parameter means the
 # number of subplot pieces.
 p1 <- p + 
       scale_wrap(n=4) +
