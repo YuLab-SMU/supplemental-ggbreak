@@ -32,7 +32,6 @@ knitr::opts_chunk$set(echo = TRUE)
 require(kableExtra)
 options(knitr.table.fromat = "latex")
 knitr::opts_chunk$set(fig.pos= "!ht")
-#knitr::opts_chunk$set(out.width="90%")
 knitr::opts_chunk$set(fig.align="center")
 usepackage_latex("float")
 usepackage_latex("makecell")
@@ -97,10 +96,10 @@ p1 <- p +
       annotate("rect", xmin=3219, xmax=3233, ymin=-4.5, ymax=4, fill='#ef475d', alpha = 0.2) +
       annotate("rect", xmin=3547, xmax=3571, ymin=-4.5, ymax=4, fill='#ef475d', alpha = 0.2)
 
-plot_list(p, p1, ncol=1, tag_levels = 'A', tag_size = rel(2), heights=c(1,2))
+plot_list(p, p1, ncol=1, tag_levels = 'A', tag_size = rel(2), heights=c(1, 2))
 ```
-```{r echo=FALSE, fig.width=12,fig.height=16,error=FALSE, warning=FALSE, message=FALSE, dpi=300}
 
+```{r echo=FALSE, fig.width=12,fig.height=16,error=FALSE, warning=FALSE, message=FALSE, dpi=300}
 g1 = aplot::plot_list(p, p1, ncol=1, tag_levels = 'A', tag_size = rel(2), heights = c(1, 2))
 ggsave(g1, file="../Figures/Figure1.tiff", compression='lzw', width=12, height=16)
 ggsave(g1, file="../Figures/Figure1.png", width=12, height=16)
@@ -123,8 +122,8 @@ p <- ggtree(
      expand_limits(x = c(0, 1.6), y = c(0, 7)) +
      geom_tiplab(size = 4, color = "purple")  +
      theme_tree2()
-# the scale_x_break of ggbreak is used to set an x axis break point for the ggtree plot
-# breaks parameter means the break point, here, the plot will be split two subplots
+# In the example, the scale_x_break of ggbreak is used to set an x axis break point for the 
+# ggtree plot, breaks parameter means the break point. Here, the plot will be split two subplots
 # ticklabels parameter means the x axis ticks labels of subplot.
 # scales parameter means the relative width of subplot to the first subplot (left subplot) 
 # in the example
@@ -149,7 +148,6 @@ p1 <- p +
           )
       )
 plot_list(p, p1, ncol=1, tag_levels = 'A', tag_size = rel(2))
-
 ```
 
 ```{r echo=F}
@@ -157,7 +155,6 @@ g2 = aplot::plot_list(p, p1, ncol=1, tag_levels = 'A', tag_size = rel(2))
 ggsave(g2, file="../Figures/Figure2.tiff", compression='lzw', height=7, width=12)
 ggsave(g2, file="../Figures/Figure2.png", height=7, width=12)
 ```
-
 
 # Example 3: Cut Manhattan plot to create more space for annotation
 
@@ -171,8 +168,7 @@ library("dplyr")
 snp <- read.table(file = "../data/GCST90007012_buildGRCh37.tsv", 
                   header = T, fill = T)
 head(snp)
-snp$chromosome <- factor(snp$chromosome, 
-                         levels = sort(unique(snp$chromosome)))
+snp$chromosome <- factor(snp$chromosome, levels = sort(unique(snp$chromosome)))
 
 p1 <- ggplot(
           data = snp, 
@@ -181,8 +177,7 @@ p1 <- ggplot(
               y = -log10(p_value), 
               color = chromosome)
       ) +
-      geom_jitter() +#data=snp,
-      #            aes(x=chromosome, y = -log10(p_value), color=chromosome)) +
+      geom_jitter() +
       geom_abline(
           intercept = 5, 
           slope = 0, 
@@ -205,9 +200,6 @@ p2 <- p1 +
       ) +
       geom_text(
           data=snp %>% filter(-log10(p_value) >= 5),
-              #aes(x=chromosome, y = -log10(p_value),
-              #    color=chromosome, 
-	          #label=variant_id),
           mapping = aes(label = variant_id),
           nudge_x = 0.1, 
           nudge_y = 0.1
