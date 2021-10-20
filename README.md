@@ -1,6 +1,12 @@
-# supplemental-ggbreak
+# Use ggbreak to effectively utilize plotting space to deal with large datasets and outliers
 
-This repo contains source code and data to produce Supplementary Material.
+If you use this work in published research, please cite:
+
+S Xu<sup>#</sup>, M Chen<sup>#</sup>, T Feng, L Zhan, L Zhou, **G Yu**<sup>\*</sup>. Use ggbreak to effectively utilize plotting space to deal with large datasets and outliers. 
+***Frontiers in Genetics***. 2021, 12:774846. doi: [10.3389/fgene.2021.774846](https://www.frontiersin.org/articles/10.3389/fgene.2021.774846)
+
+
+This repo contains source code and data to produce Supplementary Material of the above paper.
 
 + supplementary.Rmd: R Markdown file to compile the PDF
 + supplementary.pdf: Supplemental Material, the PDF
